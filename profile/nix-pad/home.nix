@@ -12,6 +12,7 @@ in
   imports = [
     ../../home/jetbrains-toolbox.nix
     ../../home/git.nix
+    ../../home/office/libreOffice.nix
   ];
 
   home.username = "lauser";
