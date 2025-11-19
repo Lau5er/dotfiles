@@ -5,7 +5,11 @@
     [
       ./hardware-configuration.nix
       ../../system/hardware.graphics.intel.nix
+      ../../system/docker.nix
+      ../../system/laptop.performance.nix
     ];
+
+  services.power-profiles-daemon.enable = false;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -26,6 +30,8 @@
     desktopManager.plasma6.enable = true;
     displayManager.sddm.enable = true;
     displayManager.sddm.wayland.enable = true;
+    gnome.gnome-keyring.enable = true;
+
 
     xserver.xkb.layout = "de";
 
@@ -36,12 +42,14 @@
 
   };
 
+  security.pam.services.plasma6.enableGnomeKeyring = true;
+
   # hardware.nvidia.modesetting.enable = true;
   # hardware.nvidia.open = true;
 
   users.users.lauser = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -54,6 +62,9 @@
       "OfferToSaveLogins" = false;
     };
   };
+
+  #  programs.adb.enable = true;
+
   # programs.steam = {
   #  enable = true;
   #  remotePlay.openFirewall = true;
@@ -96,10 +107,13 @@
         # Enable all controllers when they are found. This includes
         # adapters present on start as well as adapters that are plugged
         # in later on. Defaults to 'true'.
-        AutoEnable = true;
+        AutoEnable = false;
       };
     };
   };
+
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 7d";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
