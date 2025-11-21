@@ -5,6 +5,7 @@
     [
       ./hardware-configuration.nix
       ../../system/loq/wifi.nix
+      ../../system/loq/backlight.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -60,7 +61,6 @@
     alacritty
     git
     mangohud
-    xorg.xbacklight
   ];
 
   fonts.packages = with pkgs; [

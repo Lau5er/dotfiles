@@ -1,8 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  boot.kernelModules = [
-    "rtw89_8852be"
+  environment.systemPackages = with pkgs; [
+    xorg.xbacklight
   ];
-
 }
