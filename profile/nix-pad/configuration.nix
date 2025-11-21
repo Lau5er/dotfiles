@@ -6,17 +6,17 @@
       ./hardware-configuration.nix
       ../../system/hardware.graphics.intel.nix
       ../../system/docker.nix
-      ../../system/laptop.performance.nix
+      #../../system/laptop.performance.nix
+      ../../system/numlock.nix
+      ../../system/gaming/steam.nix
+      ../../system/l490/bluetooth.nix
     ];
 
-  services.power-profiles-daemon.enable = false;
+  #services.power-profiles-daemon.enable = false;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  #  boot.kernelModules = [
-  #   "rtw89_8852be"
-  #];
 
   networking.hostName = "nix-pad";
   networking.networkmanager.enable = true;
@@ -30,7 +30,6 @@
     desktopManager.plasma6.enable = true;
     displayManager.sddm.enable = true;
     displayManager.sddm.wayland.enable = true;
-    gnome.gnome-keyring.enable = true;
 
 
     xserver.xkb.layout = "de";
@@ -40,9 +39,11 @@
     tailscale.enable = true;
     tailscale.useRoutingFeatures = "client";
 
+    fwupd.enable = true;
+
   };
 
-  security.pam.services.plasma6.enableGnomeKeyring = true;
+  security.pam.services.sddm.enableKwallet = true;
 
   # hardware.nvidia.modesetting.enable = true;
   # hardware.nvidia.open = true;
@@ -65,13 +66,6 @@
 
   #  programs.adb.enable = true;
 
-  # programs.steam = {
-  #  enable = true;
-  #  remotePlay.openFirewall = true;
-  #  dedicatedServer.openFirewall = true;
-  #  };
-  # programs.gamemode.enable = true;
-
 
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -81,36 +75,21 @@
     alacritty
     git
     #   mangohud
-    xorg.xbacklight
     direnv
     pika-backup
+    prusa-slicer
+  ];
+
+  i18n.defaultLocale = "de_DE.UTF-8";
+
+  i18n.extraLocales = [
+    "en_US.UTF-8/UTF-8"
+    "de_DE.UTF-8/UTF-8"
   ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
-
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        # Shows battery charge of connected devices on supported
-        # Bluetooth adapters. Defaults to 'false'.
-        Experimental = true;
-        # When enabled other devices can connect faster to us, however
-        # the tradeoff is increased power consumption. Defaults to
-        # 'false'.
-        FastConnectable = true;
-      };
-      Policy = {
-        # Enable all controllers when they are found. This includes
-        # adapters present on start as well as adapters that are plugged
-        # in later on. Defaults to 'true'.
-        AutoEnable = false;
-      };
-    };
-  };
 
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 7d";

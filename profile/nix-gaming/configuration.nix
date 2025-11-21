@@ -4,14 +4,13 @@
   imports =
     [
       ./hardware-configuration.nix
+      ../../system/loq/wifi.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [
-    "rtw89_8852be"
-  ];
+
 
   networking.hostName = "nix-gaming";
   networking.networkmanager.enable = true;

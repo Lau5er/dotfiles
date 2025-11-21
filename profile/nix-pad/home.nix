@@ -13,6 +13,7 @@ in
     ../../home/jetbrains-toolbox.nix
     ../../home/git.nix
     ../../home/office/libreOffice.nix
+    ../../home/3d/orca.nix
   ];
 
   home.username = "lauser";
