@@ -10,6 +10,9 @@
       ../../system/numlock.nix
       ../../system/gaming/steam.nix
       ../../system/l490/bluetooth.nix
+      ../../system/general/generationCleanup.nix
+      ../../system/services/tailscale.nix
+      ../../system/general/desktop.nix
     ];
 
   #services.power-profiles-daemon.enable = false;
@@ -26,27 +29,8 @@
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
-  services = {
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.wayland.enable = true;
+  services = { };
 
-
-    xserver.xkb.layout = "de";
-
-    # xserver.videoDrivers = [ "nvidia" ];
-
-    tailscale.enable = true;
-    tailscale.useRoutingFeatures = "client";
-
-    fwupd.enable = true;
-
-  };
-
-  security.pam.services.sddm.enableKwallet = true;
-
-  # hardware.nvidia.modesetting.enable = true;
-  # hardware.nvidia.open = true;
 
   users.users.lauser = {
     isNormalUser = true;
@@ -90,9 +74,6 @@
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
-
-  nix.gc.automatic = true;
-  nix.gc.options = "--delete-older-than 7d";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
