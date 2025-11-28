@@ -13,6 +13,9 @@
       ../../system/general/generationCleanup.nix
       ../../system/services/tailscale.nix
       ../../system/general/desktop.nix
+      ../../system/general/iscsi.nix
+
+      ../../system/development/platformio.nix
     ];
 
   #services.power-profiles-daemon.enable = false;
@@ -34,7 +37,7 @@
 
   users.users.lauser = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "dialout" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -62,6 +65,8 @@
     direnv
     pika-backup
     prusa-slicer
+    kdePackages.partitionmanager
+    brave
   ];
 
   i18n.defaultLocale = "de_DE.UTF-8";
