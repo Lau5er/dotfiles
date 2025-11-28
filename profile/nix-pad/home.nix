@@ -60,6 +60,8 @@ in
     #pkgs-unstable.jetbrains-toolbox
     spotify
     notepadqq
+    pkgs-unstable.makemkv
+    vlc
   ];
 
   #  home.sessionVariables = {
