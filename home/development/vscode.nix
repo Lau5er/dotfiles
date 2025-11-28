@@ -1,4 +1,4 @@
-{ pkgs, lig, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   home.packages = with pkgs; [
@@ -11,7 +11,7 @@
 
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode; # Das offizielle VS Code (Microsoft)
+    package = pkgs-unstable.vscode; # Das offizielle VS Code (Microsoft)
 
     profiles.default = {
 
@@ -41,7 +41,7 @@
       # -----------------------------------------------------------
       # Erweiterungen
       # -----------------------------------------------------------
-      extensions = with pkgs.vscode-extensions; [
+      extensions = with pkgs-unstable.vscode-extensions; [
         # Diese sind in NixOS vorverpackt - sehr bequem:
         ms-vscode.cpptools # C++ Support (Microsoft Original)
         bbenoist.nix # Nix Highlighting
@@ -51,7 +51,7 @@
         github.copilot-chat
       ]
       # Hier holen wir PlatformIO direkt vom Marktplatz
-      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      ++ pkgs-unstable.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "platformio-ide";
           publisher = "platformio";
