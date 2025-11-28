@@ -10,6 +10,6 @@
 
   services.udev.packages = with pkgs; [
     platformio-core.udev
-    openoce
+    openocd
   ];
 }
