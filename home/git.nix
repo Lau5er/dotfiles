@@ -3,7 +3,7 @@
 {
   programs.git = {
     enable = true;
-    extraConfig = {
+    settings = {
       user.name = "Lau5er";
       user.email = "lau5er@icloud.com";
       core = {

@@ -59,7 +59,6 @@ in
     teams-for-linux
     #pkgs-unstable.jetbrains-toolbox
     spotify
-    notepadqq
     pkgs-unstable.makemkv
     vlc
   ];
