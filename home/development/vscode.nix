@@ -47,6 +47,9 @@
         bbenoist.nix # Nix Highlighting
         mkhl.direnv # Direnv Support
 
+        ms-vscode.cpptools
+        twxs.cmake
+
         github.copilot
         github.copilot-chat
       ]
