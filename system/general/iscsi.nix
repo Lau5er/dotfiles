@@ -13,7 +13,7 @@
     # Wenn du NixOS neu installierst, darf sich dieser Name nicht ändern,
     # sonst erkennt das NAS dich nicht mehr.
     name = "iqn.2024-11.com.nixos:laptop-client";
-    discoverPortal = "192.168.0.42";
+    discoverPortal = "192.168.0.100";
 
     # HIER IST DER FIX FÜR WLAN / ABBRÜCHE:
     extraConfig = ''
@@ -44,11 +44,11 @@
       # Wir prüfen kurz, ob die IP überhaupt erreichbar ist (Timeout 2 Sek).
       # Wenn nicht (du bist nicht zuhause), bricht der Service sofort ab (exit 1) 
       # und versucht gar nicht erst, iscsiadm auszuführen. Das spart Zeit & Logs.
-      ExecStartPre = "${pkgs.bash}/bin/sh -c '${pkgs.iputils}/bin/ping -c 1 -W 2 192.168.0.42 || exit 0'";
+      ExecStartPre = "${pkgs.bash}/bin/sh -c '${pkgs.iputils}/bin/ping -c 1 -W 2 192.168.0.100 || exit 0'";
 
       # Die eigentlichen Befehle (Discovery + Login)
-      ExecStart = "${pkgs.openiscsi}/bin/iscsiadm -m node -T iqn.2025-03.com.ugreen:backup -p 192.168.0.42 --login";
-      ExecStop = "${pkgs.openiscsi}/bin/iscsiadm -m node -T iqn.2025-03.com.ugreen:backup -p 192.168.0.42 --logout";
+      ExecStart = "${pkgs.openiscsi}/bin/iscsiadm -m node -T iqn.2025-03.com.ugreen:backup -p 192.168.0.100 --login";
+      ExecStop = "${pkgs.openiscsi}/bin/iscsiadm -m node -T iqn.2025-03.com.ugreen:backup -p 192.168.0.100 --logout";
 
       # Wichtig für Laptops: Nicht ewig neustarten, wenn wir unterwegs sind
       Restart = "on-failure";
