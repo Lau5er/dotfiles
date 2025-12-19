@@ -30,7 +30,10 @@
     xserver.videoDrivers = [ "nvidia" ];
   };
   hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.open = true;
+  hardware.nvidia.open = false;
+
+  powerManagement.enable = true;
+
 
   users.users.lauser = {
     isNormalUser = true;
