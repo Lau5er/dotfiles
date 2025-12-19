@@ -34,7 +34,7 @@ in
     nixpkgs-fmt
     nodejs
     gcc
-    protonup-ge
+    protonup-ng
     discord-ptb
     (prismlauncher.override {
       additionalPrograms = [ ffmpeg ];
