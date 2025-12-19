@@ -6,6 +6,10 @@
       ./hardware-configuration.nix
       ../../system/loq/wifi.nix
       ../../system/loq/backlight.nix
+      ../../system/general/generationCleanup.nix
+      ../../system/services/tailscale.nix
+      ../../system/general/desktop.nix
+      ../../system/gaming/steam.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -22,16 +26,8 @@
   time.timeZone = "Europe/Berlin";
 
   services = {
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.wayland.enable = true;
-
-    xserver.xkb.layout = "de";
 
     xserver.videoDrivers = [ "nvidia" ];
-
-    tailscale.enable = true;
-    tailscale.useRoutingFeatures = "client";
   };
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.open = true;
@@ -45,12 +41,6 @@
   };
 
   programs.firefox.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
-  programs.gamemode.enable = true;
 
 
   environment.systemPackages = with pkgs; [

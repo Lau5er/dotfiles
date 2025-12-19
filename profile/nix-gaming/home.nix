@@ -9,6 +9,10 @@ let
 in
 
 {
+  imports = [
+    ../../home/git.nix
+  ];
+
   home.username = "lauser";
   home.homeDirectory = "/home/lauser";
   programs.git.enable = true;
@@ -48,12 +52,5 @@ in
   home.sessionVariables = {
     STEAM_EXTRAA_COMPAT_TOOLS_PATHS =
       "\${HOME}/.steam/root/compatibilitytools.d";
-  };
-
-  programs.git = {
-    extraConfig = {
-      user.name = "Lau5er";
-      user.email = "lau5er@icloud.com";
-    };
   };
 }
