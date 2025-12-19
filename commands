@@ -1,2 +1,2 @@
-sudo nixos-rebuild swicht --flake ~/dotfiles/#profile --show-trace
+sudo nixos-rebuild switch --flake ~/dotfiles/#profile --show-trace
 sudo nix flake update
