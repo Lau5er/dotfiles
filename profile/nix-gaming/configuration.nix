@@ -14,8 +14,14 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "nvidia-drm.fbdev=1"
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    "nvidia.NVreg_EnableGpuFirmware=0"
+    "mem_sleep_default=deep"
+  ];
 
   networking.hostName = "nix-gaming";
   networking.networkmanager.enable = true;
@@ -29,11 +35,22 @@
 
     xserver.videoDrivers = [ "nvidia" ];
   };
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.open = false;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
 
-  powerManagement.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = false;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
 
+  };
+  systemd.services.nvidia-suspend.serviceConfig.ExecStart = lib.mkForce "${pkgs.bash}/bin/bash ${config.hardware.nvidia.package.out}/bin/nvidia-sleep.sh 'suspend'";
+  systemd.services.nvidia-resume.serviceConfig.ExecStart = lib.mkForce "${pkgs.bash}/bin/bash ${config.hardware.nvidia.package.out}/bin/nvidia-sleep.sh 'resume'";
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
   users.users.lauser = {
     isNormalUser = true;

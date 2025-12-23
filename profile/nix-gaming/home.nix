@@ -15,7 +15,6 @@ in
 
   home.username = "lauser";
   home.homeDirectory = "/home/lauser";
-  programs.git.enable = true;
   home.stateVersion = "25.05";
   programs.bash = {
     enable = true;
