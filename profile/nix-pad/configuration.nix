@@ -24,6 +24,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  boot.kernelModules = [ "sg" ];
+
   networking.hostName = "nix-pad";
   networking.networkmanager.enable = true;
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
