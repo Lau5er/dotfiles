@@ -46,6 +46,8 @@ in
     nextcloud-client
     thunderbird
     signal-desktop
+    vlc
+    spotify
   ];
 
   home.sessionVariables = {
