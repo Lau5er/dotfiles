@@ -16,6 +16,8 @@ in
     ../../home/3d/orca.nix
 
     ../../home/development/vscode.nix
+    ../../home/office/latex.nix
+    ../../home/development/platformio.nix
   ];
 
   home.username = "lauser";

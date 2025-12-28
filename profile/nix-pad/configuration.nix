@@ -69,6 +69,7 @@
     prusa-slicer
     kdePackages.partitionmanager
     brave
+    ntfs3g
   ];
 
   i18n.defaultLocale = "de_DE.UTF-8";
