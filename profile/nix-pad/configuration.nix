@@ -14,6 +14,7 @@
       ../../system/services/tailscale.nix
       ../../system/general/desktop.nix
       ../../system/general/iscsi.nix
+      ../../system/general/printing.nix
 
       ../../system/development/platformio.nix
     ];
