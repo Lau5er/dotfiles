@@ -35,6 +35,24 @@
           }
         ];
       };
+      
+      nixosConfigurations.brobook = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit pkgs-unstable; };
+        modules = [
+          ./profile/brobook/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.lauser = import ./profile/brobook/home.nix;
+              backupFileExtension = "backup";
+              extraSpecialArgs = { inherit pkgs-unstable; };
+            };
+          }
+        ];
+      };
 
       nixosConfigurations.nix-gaming = nixpkgs.lib.nixosSystem {
         inherit system;

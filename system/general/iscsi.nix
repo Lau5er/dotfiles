@@ -32,28 +32,28 @@
   # Der Login-Service (leicht angepasst, damit er nicht nervt, wenn du weg bist)
   systemd.services.iscsi-login-ugreen = {
     description = "Login to UGREEN iSCSI target";
-    # Warte auf Netzwerk, aber blockiere den Boot nicht, wenn es fehlt
     after = [ "network-online.target" "iscsid.service" ];
     wants = [ "network-online.target" "iscsid.service" ];
+    before = [ "remote-fs.target" ];
 
     serviceConfig = {
       Type = "oneshot";
-
       RemainAfterExit = true;
 
-      # Wir prüfen kurz, ob die IP überhaupt erreichbar ist (Timeout 2 Sek).
-      # Wenn nicht (du bist nicht zuhause), bricht der Service sofort ab (exit 1) 
-      # und versucht gar nicht erst, iscsiadm auszuführen. Das spart Zeit & Logs.
-      ExecStartPre = "${pkgs.iputils}/bin/ping -c 1 -W 2 192.168.0.100";
+      # 1. Sicherstellen, dass das Netzwerk-Interface wirklich bereit ist
+      ExecStartPre = "${pkgs.iputils}/bin/ping -c 1 -W 5 192.168.0.100";
 
-      # Die eigentlichen Befehle (Discovery + Login)
-      ExecStart = "${pkgs.openiscsi}/bin/iscsiadm -m node -T iqn.2025-03.com.ugreen:backup -p 192.168.0.100 --login";
-      ExecStop = "${pkgs.openiscsi}/bin/iscsiadm -m node -T iqn.2025-03.com.ugreen:backup -p 192.168.0.100 --logout";
+      # 2. Der "All-in-One" Befehl:
+      # -m discovery: Suche nach Targets
+      # --login: Logge dich sofort ein, wenn du welche findest.
+      # Das vermeidet die "No records found" (19) Fehler-Lücke.
+      ExecStart = "${pkgs.openiscsi}/bin/iscsiadm -m discovery -t sendtargets -p 192.168.0.100 --login";
 
-      # Wichtig für Laptops: Nicht ewig neustarten, wenn wir unterwegs sind
+      # Logout beim Herunterfahren
+      ExecStop = "${pkgs.openiscsi}/bin/iscsiadm -m node -p 192.168.0.100 --logout";
+
       Restart = "on-failure";
-      RestartSec = "10s";
-      StartLimitBurst = 3; # Nur 3 Versuche, dann aufgeben
+      RestartSec = "5s";
     };
     wantedBy = [ "multi-user.target" ];
   };
