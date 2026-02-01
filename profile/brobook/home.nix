@@ -6,6 +6,9 @@ let
   configs = {
     nvim = "nvim";
   };
+  kp-unlock-script = pkgs.writeShellScriptBin "kp-unlock" ''
+    ${pkgs.libsecret}/bin/secret-tool lookup database keepass | ${pkgs.keepassxc}/bin/keepassxc --pw-stdin "$HOME/Nextcloud/Keepass/Linus-21.kdbx"
+  '';
 in
 
 {
@@ -54,7 +57,6 @@ in
     (prismlauncher.override {
       additionalPrograms = [ ffmpeg ];
     })
-    keepassxc
     nextcloud-client
     thunderbird
     signal-desktop
@@ -63,7 +65,19 @@ in
     spotify
     pkgs-unstable.makemkv
     vlc
+
+    kp-unlock-script
   ];
+
+  xdg.desktopEntries.keepass-fingerprint = {
+    name = "KeePass Fingerprint";
+    genericName = "Passwort-Manager";
+    # Wir nutzen hier den Pfad zum Skript aus dem Nix-Store
+    exec = "${kp-unlock-script}/bin/kp-unlock";
+    icon = "keepassxc";
+    terminal = false;
+    categories = [ "Utility" ];
+  };
 
   #  home.sessionVariables = {
   #    STEAM_EXTRAA_COMPAT_TOOLS_PATHS =

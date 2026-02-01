@@ -16,6 +16,7 @@
       ../../system/general/printing.nix
 
       ../../system/development/platformio.nix
+      ../../system/general/fingerprint.nix
     ];
 
   # Bootloader.
@@ -73,7 +74,28 @@
     kdePackages.partitionmanager
     brave
     ntfs3g
+    keepassxc
+    kdePackages.kwallet
+    libsecret
   ];
+
+  environment.sessionVariables = {
+  XDG_CURRENT_DESKTOP = "KDE";
+  KDE_SESSION_VERSION = "6";
+  };
+
+  nixpkgs.config.packageOverrides = pkgs: {
+  keepassxc = pkgs.keepassxc.overrideAttrs (oldAttrs: {
+    postInstall = (oldAttrs.postInstall or "") + ''
+      wrapProgram $out/bin/keepassxc \
+        --set XDG_CURRENT_DESKTOP KDE \
+        --set KDE_FULL_SESSION true
+    '';
+  });
+  };
+
+  security.pam.services.login.enableKwallet = true;
+  security.pam.services.kde.enableKwallet = true;
 
   i18n.defaultLocale = "de_DE.UTF-8";
 
@@ -116,6 +138,8 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.11"; # Did you read the comment?
