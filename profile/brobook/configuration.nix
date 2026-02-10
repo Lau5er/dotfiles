@@ -22,15 +22,31 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #For Bios update
+  services.fwupd.enable = true;
+  # Use lts kernal
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.kernelModules = [ "sg" ];
 
   boot.initrd.luks.devices."luks-2e946b90-1c34-4930-a20c-0d7cd0bc654e".device = "/dev/disk/by-uuid/2e946b90-1c34-4930-a20c-0d7cd0bc654e";
   networking.hostName = "brobook"; # Define your hostname.
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  
+  #Verhindern das Wlan karte in Tiefschlaf geht und nicht mehr aufwacht
+  boot.extraModprobeConfig = ''
+    options mt7921e disable_aspm=1
+    options mt7922e disable_aspm=1
+  '';
+
+  # Stromspar-Modus für WLAN im NetworkManager deaktivieren
+  # Verhindert, dass der NetworkManager die Karte im Akkubetrieb abschaltet.
+  networking.networkmanager.settings = {
+    connection = {
+      "wifi.powersafe" = 2;
+      };
+    };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
