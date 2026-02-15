@@ -65,6 +65,7 @@ in
     spotify
     pkgs-unstable.makemkv
     vlc
+    freecad
 
     kp-unlock-script
   ];

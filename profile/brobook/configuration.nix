@@ -36,9 +36,18 @@
   
   #Verhindern das Wlan karte in Tiefschlaf geht und nicht mehr aufwacht
   boot.extraModprobeConfig = ''
-    options mt7921e disable_aspm=1
-    options mt7922e disable_aspm=1
+    options mt7921e disable_aspm=1 disable_he=1
+    options mt7922e disable_aspm=1 disable_he=1
   '';
+
+  networking.wireless.iwd.settings = {
+    General = {
+      Country = "DE";
+    };
+    Settings = {
+      AutoConnect = true;
+    };
+  };
 
   # Stromspar-Modus für WLAN im NetworkManager deaktivieren
   # Verhindert, dass der NetworkManager die Karte im Akkubetrieb abschaltet.
