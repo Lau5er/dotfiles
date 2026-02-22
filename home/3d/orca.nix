@@ -1,7 +1,7 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 
 {
-  home.packages = with pkgs-unstable; [
+  home.packages = with pkgs; [
     # ... deine anderen Pakete ...
 
     # Ersetze "orca-slicer" durch diesen Block:
