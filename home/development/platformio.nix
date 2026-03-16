@@ -20,7 +20,6 @@
     # C++ und PlatformIO Extensions
     extensions = with pkgs-unstable.vscode-extensions; [
       ms-vscode.cpptools # C++ Support
-      twxs.cmake # CMake Support
     ]
     # PlatformIO Extension vom Marketplace
     ++ pkgs-unstable.vscode-utils.extensionsFromVscodeMarketplace [

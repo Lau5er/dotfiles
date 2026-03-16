@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 {
   imports =
@@ -17,6 +17,8 @@
 
       ../../system/development/platformio.nix
       ../../system/general/fingerprint.nix
+
+      ../../system/development/stm32.nix
     ];
 
   # Bootloader.
@@ -45,7 +47,7 @@
 
   users.users.lauser = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "plugdev" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -81,6 +83,7 @@
     kdePackages.kwallet
     libsecret
     firefoxpwa
+    pkgs-unstable.github-copilot-cli
   ];
 
   environment.sessionVariables = {

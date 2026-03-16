@@ -6,15 +6,20 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, ... }:
+  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, ... }:
     let
       system = "x86_64-linux";
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
       };
+      vscode-extensions = nix-vscode-extensions.extensions.${system};
 
     in
     {
@@ -30,7 +35,7 @@
               useUserPackages = true;
               users.lauser = import ./profile/nix-pad/home.nix;
               backupFileExtension = "backup";
-              extraSpecialArgs = { inherit pkgs-unstable; };
+              extraSpecialArgs = { inherit pkgs-unstable vscode-extensions; };
             };
           }
         ];
@@ -48,7 +53,7 @@
               useUserPackages = true;
               users.lauser = import ./profile/brobook/home.nix;
               backupFileExtension = "backup";
-              extraSpecialArgs = { inherit pkgs-unstable; };
+              extraSpecialArgs = { inherit pkgs-unstable vscode-extensions; };
             };
           }
         ];
@@ -66,7 +71,7 @@
               useUserPackages = true;
               users.lauser = import ./profile/nix-gaming/home.nix;
               backupFileExtension = "backup";
-              extraSpecialArgs = { inherit pkgs-unstable; };
+              extraSpecialArgs = { inherit pkgs-unstable vscode-extensions; };
             };
           }
         ];

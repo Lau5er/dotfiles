@@ -6,6 +6,7 @@
     stdenv.cc.cc
     zlib
     openssl
+    libusb1
   ];
 
   services.udev.packages = with pkgs; [

@@ -1,9 +1,10 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, pkgs-unstable, vscode-extensions, ... }:
 
 {
   programs.vscode = {
     enable = true;
     package = pkgs-unstable.vscode;
+    mutableExtensionsDir = false;
 
     profiles.default = {
 
@@ -20,8 +21,6 @@
         bbenoist.nix # Nix Syntax Highlighting
         mkhl.direnv # Direnv Integration
 
-
-        github.copilot
         github.copilot-chat
       ];
     };
