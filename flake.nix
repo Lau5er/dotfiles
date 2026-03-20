@@ -10,9 +10,14 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, ... }:
+  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, ... }:
     let
       system = "x86_64-linux";
       pkgs-unstable = import nixpkgs-unstable {
@@ -53,7 +58,7 @@
               useUserPackages = true;
               users.lauser = import ./profile/brobook/home.nix;
               backupFileExtension = "backup";
-              extraSpecialArgs = { inherit pkgs-unstable vscode-extensions; };
+              extraSpecialArgs = { inherit pkgs-unstable vscode-extensions plasma-manager; };
             };
           }
         ];

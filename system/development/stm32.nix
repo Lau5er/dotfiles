@@ -4,6 +4,9 @@
   environment.systemPackages = with pkgs; [
     stm32cubemx
     saleae-logic-2
+    gcc-arm-embedded # arm-none-eabi-gcc für STM32 CMake Projekte
+    cmake
+    ninja
   ];
 
   # udev-Regeln für STLink USB-Zugriff ohne Root

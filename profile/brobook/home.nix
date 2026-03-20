@@ -1,10 +1,10 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, pkgs-unstable, plasma-manager, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
+  dotfiles = "${config.home.homeDirectory}/dotfiles";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   configs = {
-    nvim = "nvim";
+    nvim = "profile/brobook/config/nvim";
   };
   kp-unlock-script = pkgs.writeShellScriptBin "kp-unlock" ''
     ${pkgs.libsecret}/bin/secret-tool lookup database keepass | ${pkgs.keepassxc}/bin/keepassxc --pw-stdin "$HOME/Nextcloud/Keepass/Linus-21.kdbx"
@@ -22,6 +22,8 @@ in
     ../../home/development/vscode-stm32.nix
     ../../home/office/latex.nix
     ../../home/development/platformio.nix
+    plasma-manager.homeManagerModules.plasma-manager
+    ./plasma.nix
   ];
 
   home.username = "lauser";
