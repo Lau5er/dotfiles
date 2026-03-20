@@ -48,6 +48,7 @@ in
     signal-desktop
     vlc
     spotify
+    heroic
   ];
 
   home.sessionVariables = {
