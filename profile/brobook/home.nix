@@ -22,7 +22,7 @@ in
     ../../home/development/vscode-stm32.nix
     ../../home/office/latex.nix
     ../../home/development/platformio.nix
-    plasma-manager.homeManagerModules.plasma-manager
+    plasma-manager.homeModules.plasma-manager
     ./plasma.nix
   ];
 
