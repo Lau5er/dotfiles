@@ -49,6 +49,7 @@ in
     nixpkgs-fmt
     nodejs
     gcc
+    clang-tools
     #    protonup
     discord-ptb
     (prismlauncher.override {

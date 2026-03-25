@@ -55,6 +55,7 @@ in
     nixpkgs-fmt
     nodejs
     gcc
+    clang-tools
     #    protonup
     discord-ptb
     (prismlauncher.override {
@@ -68,7 +69,7 @@ in
     spotify
     pkgs-unstable.makemkv
     vlc
-    freecad
+    pkgs-unstable.freecad
 
     kp-unlock-script
   ];
