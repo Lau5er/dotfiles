@@ -2,6 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
+    distrobox
     stm32cubemx
     saleae-logic-2
     gcc-arm-embedded # arm-none-eabi-gcc für STM32 CMake Projekte
