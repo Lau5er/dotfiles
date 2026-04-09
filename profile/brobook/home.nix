@@ -70,6 +70,7 @@ in
     pkgs-unstable.makemkv
     vlc
     pkgs-unstable.freecad
+    openscad
 
     kp-unlock-script
   ];

@@ -84,7 +84,9 @@
     libsecret
     firefoxpwa
     pkgs-unstable.github-copilot-cli
-    winboat
+    pkgs-unstable.winboat
+
+    bash #fix for copilot
   ];
 
   environment.sessionVariables = {
