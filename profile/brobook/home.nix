@@ -67,6 +67,7 @@ in
     teams-for-linux
     #pkgs-unstable.jetbrains-toolbox
     spotify
+    deezer-enhanced
     pkgs-unstable.makemkv
     vlc
     pkgs-unstable.freecad
