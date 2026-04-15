@@ -12,6 +12,7 @@
       ../../system/general/generationCleanup.nix
       ../../system/services/tailscale.nix
       ../../system/general/desktop.nix
+      ../../system/general/firefox.nix
       ../../system/general/iscsi.nix
       ../../system/general/printing.nix
 
@@ -54,11 +55,6 @@
   };
 
   programs.firefox = {
-    enable = true;
-    policies = {
-      "PasswordManagerEnabled" = false;
-      "OfferToSaveLogins" = false;
-    };
     package = pkgs.firefox;
     nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
   };

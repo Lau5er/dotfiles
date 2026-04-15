@@ -13,6 +13,7 @@
       ../../system/general/generationCleanup.nix
       ../../system/services/tailscale.nix
       ../../system/general/desktop.nix
+      ../../system/general/firefox.nix
       ../../system/general/iscsi.nix
       ../../system/general/printing.nix
 
@@ -44,14 +45,6 @@
     packages = with pkgs; [
       tree
     ];
-  };
-
-  programs.firefox = {
-    enable = true;
-    policies = {
-      "PasswordManagerEnabled" = false;
-      "OfferToSaveLogins" = false;
-    };
   };
 
   #  programs.adb.enable = true;
@@ -89,4 +82,3 @@
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.05"; # Did you read the comment?
 }
-
