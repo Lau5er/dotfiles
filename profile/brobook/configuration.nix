@@ -58,6 +58,10 @@
     package = pkgs.firefox;
     nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
   };
+  programs.ausweisapp = {
+    enable = true;
+    openFirewall = true;
+  };
 
   #  programs.adb.enable = true;
 
@@ -71,7 +75,6 @@
     git
     direnv
     pika-backup
-    prusa-slicer
     kdePackages.partitionmanager
     brave
     ntfs3g
@@ -81,7 +84,6 @@
     firefoxpwa
     pkgs-unstable.github-copilot-cli
     pkgs-unstable.winboat
-
     bash #fix for copilot
   ];
 
