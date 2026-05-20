@@ -1,5 +1,8 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, pkgs-unstable, snapmaker-orca, lib, ... }:
 
+let
+  system = "x86_64-linux";
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -20,6 +23,7 @@
       ../../system/general/fingerprint.nix
 
       ../../system/development/stm32.nix
+      snapmaker-orca.nixosModules.default
     ];
 
   # Bootloader.
@@ -62,10 +66,6 @@
     enable = true;
     openFirewall = true;
   };
-  programs.snapmaker-orca = {
-    enable = true;
-  };
-
   #  programs.adb.enable = true;
 
 
@@ -113,10 +113,13 @@
   i18n.extraLocales = [
     "en_US.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
+    "C.UTF-8/UTF-8"
   ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
   ];
 
   i18n.extraLocaleSettings = {
