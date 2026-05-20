@@ -15,17 +15,16 @@
       '';
     })
 
-  ];
-
-  # Create a user-level wrapper via writeShellScriptBin so it is placed in $HOME/.nix-profile/bin
-  home.packages = with pkgs; [
+    # user-level wrapper that forces a usable locale for snapmaker-orca
     (pkgs.writeShellScriptBin "snapmaker-orca" ''
       #!/bin/sh
       export LC_ALL=C.utf8
       export LANG=C.utf8
       exec /run/current-system/sw/bin/snapmaker-orca "$@"
     '')
-  ] ++ (home.packages or []);
+
+  ];
+
 
   # Desktop entry to point to the wrapper in the user profile
   home.file.".local/share/applications/snapmaker-orca.desktop".text = ''
