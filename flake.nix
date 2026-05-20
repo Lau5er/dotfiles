@@ -15,7 +15,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    snapmaker-orca.url = "github:chrstnwhlrt/nix-snapmaker-orca";
+    snapmaker-orca = {
+      url = "github:chrstnwhlrt/nix-snapmaker-orca";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, ... }:
@@ -49,14 +51,11 @@
       
       nixosConfigurations.brobook = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit pkgs-unstable snapmaker-orca; };
+        specialArgs = { inherit pkgs-unstable; };
         modules = [
           ./profile/brobook/configuration.nix
-          snapmaker-orca.nixosModules.default
           home-manager.nixosModules.home-manager
-          {
-            programs.snapmaker-orca.enable = true;
-          }
+          snapmaker-orca.nixosModules.default
           {
             home-manager = {
               useGlobalPkgs = true;
@@ -65,6 +64,9 @@
               backupFileExtension = "backup";
               extraSpecialArgs = { inherit pkgs-unstable vscode-extensions plasma-manager; };
             };
+          }
+          {
+            programs.snapmaker-orca.enable = true;
           }
         ];
       };
