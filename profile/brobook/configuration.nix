@@ -62,6 +62,9 @@
     enable = true;
     openFirewall = true;
   };
+  programs.snapmaker-orca = {
+    enable = true;
+  };
 
   #  programs.adb.enable = true;
 
@@ -148,6 +151,8 @@
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Limit build parallelism to ~28 GB RAM (7 cores * 4 GB per core)
+  nix.settings.cores = 7;
 
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.11"; # Did you read the comment?

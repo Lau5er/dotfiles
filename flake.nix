@@ -15,9 +15,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    snapmaker-orca = {
+      url = "github:chrstnwhlrt/nix-snapmaker-orca";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, ... }:
     let
       system = "x86_64-linux";
       pkgs-unstable = import nixpkgs-unstable {
@@ -48,10 +52,11 @@
       
       nixosConfigurations.brobook = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit pkgs-unstable; };
+        specialArgs = { inherit pkgs-unstable snapmaker-orca; };
         modules = [
           ./profile/brobook/configuration.nix
           home-manager.nixosModules.home-manager
+          snapmaker-orca.nixosModules.default
           {
             home-manager = {
               useGlobalPkgs = true;
