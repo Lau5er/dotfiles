@@ -55,7 +55,6 @@
 
   programs.firefox = {
     package = pkgs.firefox;
-    nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
   };
   programs.ausweisapp = {
     enable = true;
@@ -79,7 +78,6 @@
     keepassxc
     kdePackages.kwallet
     libsecret
-    firefoxpwa
     pkgs-unstable.github-copilot-cli
     pkgs-unstable.winboat
     bash #fix for copilot
