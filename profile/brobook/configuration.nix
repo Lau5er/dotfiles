@@ -103,8 +103,7 @@
 
   i18n.defaultLocale = "de_DE.UTF-8";
 
-  # Use extraLocales with explicit encoding as required by glibc locales builder
-  i18n.extraLocales = [
+  i18n.supportedLocales = [
     "de_DE.UTF-8/UTF-8"
     "en_US.UTF-8/UTF-8"
     "C.UTF-8/UTF-8"

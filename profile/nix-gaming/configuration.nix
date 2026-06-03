@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 {
   imports =
@@ -15,7 +15,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
     "nvidia-drm.modeset=1"
     "nvidia-drm.fbdev=1"
@@ -33,7 +33,6 @@
   time.timeZone = "Europe/Berlin";
 
   services = {
-
     xserver.videoDrivers = [ "nvidia" ];
   };
   hardware.nvidia = {
@@ -42,11 +41,30 @@
 
     powerManagement.enable = true;
     powerManagement.finegrained = false;
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    dynamicBoost.enable = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
 
   };
   systemd.services.nvidia-suspend.serviceConfig.ExecStart = lib.mkForce "${pkgs.bash}/bin/bash ${config.hardware.nvidia.package.out}/bin/nvidia-sleep.sh 'suspend'";
   systemd.services.nvidia-resume.serviceConfig.ExecStart = lib.mkForce "${pkgs.bash}/bin/bash ${config.hardware.nvidia.package.out}/bin/nvidia-sleep.sh 'resume'";
+  systemd.services.nvidia-powerd = {
+    description = "NVIDIA power daemon";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${config.hardware.nvidia.package.out}/bin/nvidia-powerd";
+      Restart = "on-failure";
+    };
+  };
+  systemd.services.nvidia-power-limit = {
+    description = "Set NVIDIA GPU power limit";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "nvidia-powerd.service" "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.bash}/bin/bash -c '${config.hardware.nvidia.package.out}/bin/nvidia-smi -pm 1 && ${config.hardware.nvidia.package.out}/bin/nvidia-smi -pl 115'";
+    };
+  };
 
   hardware.graphics = {
     enable = true;
@@ -69,6 +87,8 @@
     alacritty
     git
     mangohud
+    pkgs-unstable.github-copilot-cli
+    bash #fix for copilot
   ];
 
   fonts.packages = with pkgs; [

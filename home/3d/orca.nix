@@ -15,28 +15,5 @@
       '';
     })
 
-    # user-level wrapper that forces a usable locale for snapmaker-orca
-    (pkgs.writeShellScriptBin "snapmaker-orca" ''
-      #!/bin/sh
-      export LC_ALL=C.utf8
-      export LANG=C.utf8
-      exec /run/current-system/sw/bin/snapmaker-orca "$@"
-    '')
-
   ];
-
-
-  # Desktop entry to point to the wrapper in the user profile
-  home.file.".local/share/applications/snapmaker-orca.desktop".text = ''
-[Desktop Entry]
-Name=Snapmaker Orca
-GenericName=3D Slicer
-Comment=Snapmaker Orca slicer (starts with C.utf8 locale)
-Exec=$HOME/.nix-profile/bin/snapmaker-orca %U
-Terminal=false
-Type=Application
-Categories=Graphics;Science;
-Icon=snapmaker-orca
-StartupWMClass=OrcaSlicer
-'';
 }

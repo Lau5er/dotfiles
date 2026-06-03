@@ -16,7 +16,7 @@
       inputs.home-manager.follows = "home-manager";
     };
     snapmaker-orca = {
-      url = "github:chrstnwhlrt/nix-snapmaker-orca";
+      url = "github:Lau5er/nix-snapmaker-orca";
     };
   };
 
@@ -65,9 +65,21 @@
               extraSpecialArgs = { inherit pkgs-unstable vscode-extensions plasma-manager; };
             };
           }
-          {
-            programs.snapmaker-orca.enable = true;
-          }
+          ({ pkgs, ... }: {
+            programs.snapmaker-orca = {
+              enable = true;
+              package = pkgs.symlinkJoin {
+                name = "snapmaker-orca";
+                paths = [ snapmaker-orca.packages.${system}.snapmaker-orca ];
+                buildInputs = [ pkgs.makeWrapper ];
+                postBuild = ''
+                  wrapProgram $out/bin/snapmaker-orca \
+                    --set LC_ALL C.UTF-8 \
+                    --set LANG C.UTF-8
+                '';
+              };
+            };
+          })
         ];
       };
 
