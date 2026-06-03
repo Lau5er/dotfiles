@@ -47,15 +47,6 @@
   };
   systemd.services.nvidia-suspend.serviceConfig.ExecStart = lib.mkForce "${pkgs.bash}/bin/bash ${config.hardware.nvidia.package.out}/bin/nvidia-sleep.sh 'suspend'";
   systemd.services.nvidia-resume.serviceConfig.ExecStart = lib.mkForce "${pkgs.bash}/bin/bash ${config.hardware.nvidia.package.out}/bin/nvidia-sleep.sh 'resume'";
-  systemd.services.nvidia-powerd = {
-    description = "NVIDIA power daemon";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${config.hardware.nvidia.package.out}/bin/nvidia-powerd";
-      Restart = "on-failure";
-    };
-  };
   systemd.services.nvidia-power-limit = {
     description = "Set NVIDIA GPU power limit";
     wantedBy = [ "multi-user.target" ];
