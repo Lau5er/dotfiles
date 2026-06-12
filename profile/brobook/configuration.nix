@@ -18,7 +18,7 @@
       ../../system/development/platformio.nix
       ../../system/general/fingerprint.nix
 
-      ../../system/development/stm32.nix
+    #  ../../system/development/stm32.nix
     ];
 
   # Bootloader.
