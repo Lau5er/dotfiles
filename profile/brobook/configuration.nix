@@ -24,6 +24,15 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.extraModprobeConfig = ''
+    options cfg80211 ieee80211_regdom="DE"
+
+    options mt7921e disable_aspm=y
+
+    options rtw89_pci disable_aspm=y
+    '';
+
   #For Bios update
   services.fwupd.enable = true;
   # Use lts kernal
@@ -33,7 +42,18 @@
   boot.initrd.luks.devices."luks-2e946b90-1c34-4930-a20c-0d7cd0bc654e".device = "/dev/disk/by-uuid/2e946b90-1c34-4930-a20c-0d7cd0bc654e";
   networking.hostName = "brobook"; # Define your hostname.
   networking.networkmanager.enable = true;
+  networking.networkmanager.settings = {
+    connection = {
+      "wifi.mach-address-randomization" = 1;
+    };
+    wifi = {
+    powersave = false;
+    "scan-rand-mac-address" = "no";
+    };
+  };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  hardware.wirelessRegulatoryDatabase = true;
+  networking.networkmanager.wifi.powersave = false;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -81,7 +101,23 @@
     pkgs-unstable.github-copilot-cli
     pkgs-unstable.winboat
     bash #fix for copilot
+    opencode
+    iw
+    aider-chat
   ];
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-rocm;
+  
+    environmentVariables = {
+      # Erlaubt dem Server, den Kontext auf 64k hochzuskalieren
+      OLLAMA_CONTEXT_LENGTH = "65536"; 
+    
+      # Verhindert, dass parallele Anfragen den RAM deines Laptops sprengen
+      OLLAMA_NUM_PARALLEL = "1";
+    };
+  };
 
   environment.sessionVariables = {
   XDG_CURRENT_DESKTOP = "KDE";
