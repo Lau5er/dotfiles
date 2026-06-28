@@ -12,6 +12,7 @@
       userSettings = {
         "telemetry.telemetryLevel" = "off";
         "update.mode" = "none";
+        "window.restoreWindows" = "none";
         "workbench.startupEditor" = "newUntitledFile";
         "editor.fontSize" = 14;
       };

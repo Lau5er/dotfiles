@@ -33,6 +33,7 @@ in
 {
   programs.plasma = {
     enable = true;
+    session.sessionRestore.excludeApplications = [ "code" "code-oss" "com.visualstudio.code" ];
     workspace = {
       clickItemTo = "select";
       lookAndFeel = "org.kde.breezedark.desktop";

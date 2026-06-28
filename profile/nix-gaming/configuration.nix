@@ -11,6 +11,7 @@
       ../../system/general/desktop.nix
       ../../system/general/firefox.nix
       ../../system/gaming/steam.nix
+      ../../system/services/ollama.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
@@ -31,6 +32,12 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
+
+  services.ollama-custom = {
+    enable = true;
+    backend = "cuda";
+    enableOpenWebUI = true;
+  };
 
   services = {
     xserver.videoDrivers = [ "nvidia" ];
@@ -78,6 +85,8 @@
     alacritty
     git
     mangohud
+    opencode
+    aider-chat
     pkgs-unstable.github-copilot-cli
     bash #fix for copilot
   ];
