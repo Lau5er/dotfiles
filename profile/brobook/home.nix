@@ -70,7 +70,7 @@ in
     deezer-enhanced
     pkgs-unstable.makemkv
     vlc
-    pkgs-unstable.freecad
+    pkgs.freecad
     openscad
 
     kp-unlock-script

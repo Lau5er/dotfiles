@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -44,7 +44,7 @@
   time.timeZone = "Europe/Berlin";
 
   services.ollama-custom = {
-    enable = true;
+    enable = false;
     backend = "rocm";
     contextLength = 65536;
     numParallel = 1;
@@ -105,9 +105,6 @@
         --set KDE_FULL_SESSION true
     '';
   });
-  openblas = pkgs.openblas.overrideAttrs (old: {
-    doCheck = false;
-  });
   };
 
   security.pam.services.login.enableKwallet = true;
@@ -165,6 +162,14 @@
   nix.settings.cores = 7;
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
+
+  # Temporäre Site-Sperre: true = YouTube + Instagram blockiert
+  networking.extraHosts = lib.mkIf true ''
+    127.0.0.1 youtube.com www.youtube.com m.youtube.com
+    127.0.0.1 instagram.com www.instagram.com
+  '';
+
   system.stateVersion = "25.11"; # Did you read the comment?
 
 }
