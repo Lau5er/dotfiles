@@ -18,14 +18,20 @@
     snapmaker-orca = {
       url = "github:Lau5er/nix-snapmaker-orca";
     };
+    copyparty = {
+      url = "github:9001/copyparty";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, ... }:
+  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, copyparty, ... }:
     let
       system = "x86_64-linux";
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [ "electron-40.10.5" ];
+        };
       };
       vscode-extensions = nix-vscode-extensions.extensions.${system};
 
@@ -79,6 +85,7 @@
                 '';
               };
             };
+            nixpkgs.overlays = [ copyparty.overlays.default ];
           })
         ];
       };

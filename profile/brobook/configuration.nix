@@ -36,6 +36,8 @@
   boot.initrd.luks.devices."luks-2e946b90-1c34-4930-a20c-0d7cd0bc654e".device = "/dev/disk/by-uuid/2e946b90-1c34-4930-a20c-0d7cd0bc654e";
   networking.hostName = "brobook"; # Define your hostname.
 
+  networking.firewall.allowedTCPPorts = [ 3923 ];
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -90,6 +92,7 @@
     opencode
     iw
     aider-chat
+    copyparty
   ];
 
   environment.sessionVariables = {
@@ -162,7 +165,7 @@
   nix.settings.cores = 7;
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" ];
+  nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" "electron-40.10.5" ];
 
   # Temporäre Site-Sperre: true = YouTube + Instagram blockiert
   networking.extraHosts = lib.mkIf true ''
