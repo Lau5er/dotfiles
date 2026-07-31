@@ -3,47 +3,21 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../system/docker.nix
-      #../../system/laptop.performance.nix
-      ../../system/numlock.nix
-      ../../system/gaming/steam.nix
-      ../../system/l490/bluetooth.nix
-      ../../system/general/generationCleanup.nix
-      ../../system/services/tailscale.nix
-      ../../system/general/desktop.nix
-      ../../system/general/firefox.nix
-      ../../system/general/iscsi.nix
-      ../../system/general/printing.nix
-
-      ../../system/development/platformio.nix
+      ../../system/common/base.nix
       ../../system/general/fingerprint.nix
       ../../system/services/wifi.nix
-      ../../system/services/ollama.nix
 
     #  ../../system/development/stm32.nix
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   #For Bios update
   services.fwupd.enable = true;
-  # Use lts kernal
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "sg" ];
 
   boot.initrd.luks.devices."luks-2e946b90-1c34-4930-a20c-0d7cd0bc654e".device = "/dev/disk/by-uuid/2e946b90-1c34-4930-a20c-0d7cd0bc654e";
   networking.hostName = "brobook"; # Define your hostname.
 
   networking.firewall.allowedTCPPorts = [ 3923 ];
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Set your time zone.
-  time.timeZone = "Europe/Berlin";
 
   services.ollama-custom = {
     enable = false;
@@ -52,13 +26,8 @@
     numParallel = 1;
   };
 
-
   users.users.lauser = {
-    isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" "plugdev" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      tree
-    ];
+    extraGroups = [ "networkmanager" "docker" "dialout" "plugdev" ]; # Enable ‘sudo’ for the user.
   };
 
   programs.firefox = {
@@ -70,14 +39,7 @@
   };
   #  programs.adb.enable = true;
 
-
   environment.systemPackages = with pkgs; [
-    vim
-    wget
-    wayland-utils
-    wl-clipboard
-    alacritty
-    git
     direnv
     pika-backup
     kdePackages.partitionmanager
@@ -113,21 +75,9 @@
   security.pam.services.login.enableKwallet = true;
   security.pam.services.kde.enableKwallet = true;
 
-  i18n.defaultLocale = "de_DE.UTF-8";
-
-  i18n.supportedLocales = [
-    "de_DE.UTF-8/UTF-8"
-    "en_US.UTF-8/UTF-8"
-    "C.UTF-8/UTF-8"
-  ];
-
   environment.variables = {
     LANG = "de_DE.UTF-8";
   };
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
@@ -160,11 +110,9 @@
     #media-session.enable = true;
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Limit build parallelism to ~28 GB RAM (7 cores * 4 GB per core)
   nix.settings.cores = 7;
 
-  nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" "electron-40.10.5" ];
 
   # Temporäre Site-Sperre: true = YouTube + Instagram blockiert

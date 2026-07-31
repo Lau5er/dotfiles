@@ -4,34 +4,23 @@
   imports =
     [
       ./hardware-configuration.nix
+      ../../system/common/base.nix
       ../../system/loq/wifi.nix
       ../../system/loq/backlight.nix
-      ../../system/general/generationCleanup.nix
-      ../../system/services/tailscale.nix
-      ../../system/general/desktop.nix
-      ../../system/general/firefox.nix
-      ../../system/gaming/steam.nix
-      ../../system/services/ollama.nix
     ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
     "nvidia-drm.modeset=1"
     "nvidia-drm.fbdev=1"
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia.NVreg_EnableGpuFirmware=0"
     "mem_sleep_default=deep"
+    "amd_pstate=active"
   ];
 
   networking.hostName = "nix-gaming";
-  networking.networkmanager.enable = true;
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Set your time zone.
-  time.timeZone = "Europe/Berlin";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   services.ollama-custom = {
     enable = true;
@@ -67,37 +56,19 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-  };
-
-  users.users.lauser = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      tree
+    extraPackages = with pkgs; [
+      nvidia-vaapi-driver
     ];
   };
 
+  hardware.enableRedistributableFirmware = true;
+
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    wayland-utils
-    wl-clipboard
-    alacritty
-    git
     mangohud
     opencode
     aider-chat
     pkgs-unstable.github-copilot-cli
     bash #fix for copilot
   ];
-
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "25.05"; # Did you read the comment?
 
 }

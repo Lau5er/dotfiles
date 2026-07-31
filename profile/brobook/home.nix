@@ -13,6 +13,7 @@ in
 
 {
   imports = [
+    ../../home/common.nix
     ../../home/jetbrains-toolbox.nix
     ../../home/git.nix
     ../../home/office/libreOffice.nix
@@ -26,17 +27,6 @@ in
     ./plasma.nix
   ];
 
-  home.username = "lauser";
-  home.homeDirectory = "/home/lauser";
-  home.stateVersion = "25.05";
-  programs.bash = {
-    enable = true;
-    shellAliases = {
-      btw = "echo i use nixos, btw";
-      #      resw = "nixos-rebuild switch --flakes ~/nixos-dotfiles#nix-gaming";
-    };
-  };
-
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -49,27 +39,10 @@ in
     configs;
 
   home.packages = with pkgs; [
-    neovim
-    ripgrep
-    nil
-    nixpkgs-fmt
-    nodejs
-    gcc
     clang-tools
-    #    protonup
-    discord-ptb
-    (prismlauncher.override {
-      additionalPrograms = [ ffmpeg ];
-    })
-    nextcloud-client
-    thunderbird
-    signal-desktop
     teams-for-linux
-    #pkgs-unstable.jetbrains-toolbox
-    spotify
     deezer-enhanced
     pkgs-unstable.makemkv
-    vlc
     pkgs.freecad
     openscad
 
@@ -86,35 +59,5 @@ in
     categories = [ "Utility" ];
   };
 
-  #  home.sessionVariables = {
-  #    STEAM_EXTRAA_COMPAT_TOOLS_PATHS =
-  #      "\${HOME}/.steam/root/compatibilitytools.d";
-  #  };
-
-  #programs.git = {
-  #  enable = true;
-  #  extraConfig = {
-  #    user.name = "Lau5er";
-  #    user.email = "lau5er@icloud.com";
-  #    core = {
-  #      autocrlf = "input";
-  #    };
-  #  };
-  #};
-
   xsession.numlock.enable = true;
-
-  # xdg.mimeApps.defaultApplications = {
-  #   "x-scheme-handler/jetbrains" = "jetbrains-toolbox.desktop";
-  # };
-
-  # xdg.desktopEntries.jetbrains-toolbox = {
-  #   name = "JetBrains Toolbox";
-  #   exec = "jetbrains-toolbox %u";
-  #   type = "Application";
-  #   terminal = false;
-  #   categories = [ "Development" ];
-  #   comment = "Manage JetBrains IDEs";
-  #   mimeType = [ "x-scheme-handler/jetbrains" ];
-  # };
 }
