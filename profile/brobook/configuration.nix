@@ -168,7 +168,7 @@
   nixpkgs.config.permittedInsecurePackages = [ "pnpm-10.29.2" "electron-40.10.5" ];
 
   # Temporäre Site-Sperre: true = YouTube + Instagram blockiert
-  networking.extraHosts = lib.mkIf true ''
+  networking.extraHosts = lib.mkIf false ''
     127.0.0.1 youtube.com www.youtube.com m.youtube.com
     127.0.0.1 instagram.com www.instagram.com
   '';

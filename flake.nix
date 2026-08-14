@@ -32,6 +32,12 @@
           allowUnfree = true;
           permittedInsecurePackages = [ "electron-40.10.5" ];
         };
+        overlays = [
+          (final: prev: {
+            # makemkv 1.18.4 does not build against ffmpeg 9 (AVCodec fields removed)
+            makemkv = prev.makemkv.override { ffmpeg = prev.ffmpeg_8; };
+          })
+        ];
       };
       vscode-extensions = nix-vscode-extensions.extensions.${system};
 
