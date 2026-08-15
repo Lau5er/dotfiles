@@ -18,8 +18,8 @@
       # Env overrides: RAM_MB, CPUS, DISK_SIZE_GB
       #
       # First run downloads the Kali netinst ISO and boots the installer.
-      # Open the console with virt-manager (or: virt-viewer kali-linux) and
-      # complete the installation. Later runs just start the existing VM.
+      # The graphical console (virt-viewer) opens automatically.
+      # Later runs just start the existing VM and open the console.
       set -euo pipefail
 
       VM_NAME="''${1:-kali-linux}"
@@ -55,16 +55,21 @@
       fi
 
       # --- 3. Create / start the VM ---------------------------------------
-      if virsh dominfo "''${VM_NAME}" >/dev/null 2>&1; then
-        if [[ "$(virsh domstate "''${VM_NAME}")" != "running" ]]; then
+      # Use the system libvirt (qemu:///system) everywhere: the NAT "default"
+      # network (192.168.122.0/24) is only defined there (see libvirt.nix).
+      # virt-install/virsh default to the user session URI otherwise, which
+      # has no "default" network -> "Network not found" errors.
+      if virsh --connect qemu:///system dominfo "''${VM_NAME}" >/dev/null 2>&1; then
+        if [[ "$(virsh --connect qemu:///system domstate "''${VM_NAME}")" != "running" ]]; then
           echo "==> Starting existing VM: ''${VM_NAME}"
-          virsh start "''${VM_NAME}"
+          virsh --connect qemu:///system start "''${VM_NAME}"
         else
           echo "==> VM ''${VM_NAME} is already running."
         fi
       else
         echo "==> Creating VM ''${VM_NAME} ..."
         virt-install \
+          --connect qemu:///system \
           --name "''${VM_NAME}" \
           --memory "''${RAM_MB}" \
           --vcpus "''${CPUS}" \
@@ -76,10 +81,13 @@
           --osinfo detect=on,require=off \
           --noautoconsole
         echo "==> VM created."
-        echo "==> Open the console with: virt-manager  (then select ''${VM_NAME})"
         echo "==> Complete the Kali installer, reboot the VM and eject the ISO"
         echo "    (in virt-manager: click the CD icon -> Boot disk)."
       fi
+
+      # --- 4. Open the graphical console -----------------------------------
+      echo "==> Opening display for ''${VM_NAME} ..."
+      virt-viewer --wait --connect qemu:///system "''${VM_NAME}" >/dev/null 2>&1 &
     '')
   ];
 }

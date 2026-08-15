@@ -9,7 +9,8 @@ let
     cuda = pkgs.ollama-cuda;
     cpu = pkgs.ollama;
   }.${cfg.backend};
-in {
+in
+{
   options.services.ollama-custom = {
     enable = mkEnableOption "Ollama AI service";
 
@@ -48,6 +49,10 @@ in {
 
     services.open-webui = mkIf cfg.enableOpenWebUI {
       enable = true;
+    };
+
+    systemd.services.open-webui.environment = mkIf cfg.enableOpenWebUI {
+      HOME = config.services.open-webui.stateDir;
     };
   };
 }
