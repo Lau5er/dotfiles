@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let
   dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
@@ -12,6 +12,7 @@ in
   imports = [
     ../../home/git.nix
     ../../home/common.nix
+    ../../home/jetbrains-toolbox.nix
   ];
 
   xdg.configFile = builtins.mapAttrs

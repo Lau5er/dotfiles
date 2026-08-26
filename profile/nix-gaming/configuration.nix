@@ -37,11 +37,15 @@
     enable = true;
     backend = "cuda";
     enableOpenWebUI = true;
+    contextLength = 8192;
+    numParallel = 1;
   };
 
   services = {
     xserver.videoDrivers = [ "nvidia" ];
   };
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_1;
+
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;

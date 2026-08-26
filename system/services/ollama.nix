@@ -44,6 +44,7 @@ in
       environmentVariables = {
         OLLAMA_CONTEXT_LENGTH = toString cfg.contextLength;
         OLLAMA_NUM_PARALLEL = toString cfg.numParallel;
+        OLLAMA_KV_CACHE_TYPE = "q8_0";
       };
     };
 
