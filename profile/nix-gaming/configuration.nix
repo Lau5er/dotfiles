@@ -27,9 +27,13 @@
     # failed suspend attempt each time. Re-add if S3 becomes available in BIOS:
     # "mem_sleep_default=deep"
     "amd_pstate=active"
+    # Virtual display on HDMI-A-1 for Sunshine/Moonlight streaming
+    "video=HDMI-A-1:1920x1080@60D"
   ];
 
   networking.hostName = "nix-gaming";
+
+  networking.firewall.allowedTCPPorts = [ 8081 ];
 
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -86,7 +90,14 @@
     settings = {
       encoder = "nvenc";
       output_name = 0;
+      global_prep_cmd = ''[{"do":"kscreen-doctor output.HDMI-A-1.enable","undo":"kscreen-doctor output.HDMI-A-1.disable"}]'';
     };
+  };
+
+  services.languagetool = {
+    enable = true;
+    public = true;
+    allowOrigin = "*";
   };
 
   environment.systemPackages = with pkgs; [
