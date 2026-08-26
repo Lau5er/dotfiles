@@ -87,23 +87,7 @@
     openFirewall = true;
     settings = {
       encoder = "nvenc";
-      file_apps = "/etc/sunshine/apps.json";
     };
-  };
-
-  environment.etc."sunshine/apps.json".text = builtins.toJSON {
-    apps = [
-      {
-        name = "Virtual Monitor";
-        "prep-cmd" = [
-          {
-            do = "kscreen-doctor output.HDMI-A-1.enable";
-            undo = "kscreen-doctor output.HDMI-A-1.disable";
-          }
-        ];
-        "auto-detach" = "true";
-      }
-    ];
   };
 
   services.languagetool = {
