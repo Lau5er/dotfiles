@@ -28,20 +28,6 @@
     settings = {
       encoder = "vaapi";
     };
-    applications = {
-      apps = [
-        {
-          name = "Virtual Monitor";
-          prep-cmd = [
-            {
-              do = "kscreen-doctor output.HDMI-A-1.enable";
-              undo = "kscreen-doctor output.HDMI-A-1.disable";
-            }
-          ];
-          auto-detach = "true";
-        }
-      ];
-    };
   };
 
   services.languagetool = {
