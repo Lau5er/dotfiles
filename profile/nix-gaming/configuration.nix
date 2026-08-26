@@ -27,8 +27,6 @@
     # failed suspend attempt each time. Re-add if S3 becomes available in BIOS:
     # "mem_sleep_default=deep"
     "amd_pstate=active"
-    # Virtual display on HDMI-A-1 for Sunshine/Moonlight streaming
-    "video=HDMI-A-1:1920x1080@60D"
   ];
 
   networking.hostName = "nix-gaming";

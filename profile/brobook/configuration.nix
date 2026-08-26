@@ -15,9 +15,6 @@
   services.fwupd.enable = true;
   boot.kernelModules = [ "sg" ];
 
-  # Virtual display on HDMI-A-1 for Sunshine/Moonlight streaming
-  boot.kernelParams = [ "video=HDMI-A-1:1920x1080@60D" ];
-
   boot.initrd.luks.devices."luks-2e946b90-1c34-4930-a20c-0d7cd0bc654e".device = "/dev/disk/by-uuid/2e946b90-1c34-4930-a20c-0d7cd0bc654e";
   networking.hostName = "brobook"; # Define your hostname.
 
