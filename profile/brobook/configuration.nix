@@ -6,6 +6,7 @@
       ../../system/common/base.nix
       ../../system/general/fingerprint.nix
       ../../system/services/wifi.nix
+      ../../system/services/moonlight.nix
 
     #  ../../system/development/stm32.nix
     ];
@@ -19,6 +20,17 @@
 
   networking.firewall.allowedTCPPorts = [ 3923 ];
 
+  hardware.graphics.enable = true;
+
+  services.sunshine = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      encoder = "vaapi";
+      output_name = 0;
+    };
+  };
+
   services.ollama-custom = {
     enable = false;
     backend = "rocm";
@@ -27,7 +39,7 @@
   };
 
   users.users.lauser = {
-    extraGroups = [ "networkmanager" "docker" "dialout" "plugdev" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "networkmanager" "docker" "dialout" "plugdev" "video" "input" ]; # Enable 'sudo' for the user.
   };
 
   programs.firefox = {
