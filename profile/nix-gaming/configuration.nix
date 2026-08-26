@@ -89,8 +89,20 @@
     openFirewall = true;
     settings = {
       encoder = "nvenc";
-      output_name = 0;
-      global_prep_cmd = ''[{"do":"kscreen-doctor output.HDMI-A-1.enable","undo":"kscreen-doctor output.HDMI-A-1.disable"}]'';
+    };
+    applications = {
+      apps = [
+        {
+          name = "Virtual Monitor";
+          prep-cmd = [
+            {
+              do = "kscreen-doctor output.HDMI-A-1.enable";
+              undo = "kscreen-doctor output.HDMI-A-1.disable";
+            }
+          ];
+          auto-detach = "true";
+        }
+      ];
     };
   };
 
