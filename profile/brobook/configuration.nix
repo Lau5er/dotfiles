@@ -54,7 +54,62 @@
     enable = true;
     openFirewall = true;
   };
-  #  programs.adb.enable = true;
+
+  # Fremd-Binaries (JetBrains Toolbox, Android Studio, Emulator) mit nötigen libs starten
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      # Basis-GUI/X11
+      libx11
+      libxcb
+      libxext
+      libxcomposite
+      libxdamage
+      libxfixes
+      libxrandr
+      libxrender
+      libxtst
+      libxkbcommon
+      libxv
+      libxau
+      libxcvt
+      libxi
+      libxt
+      libxcursor
+      libice
+      libsm
+      # XCB-Helfer
+      libxcb-util
+      libxcb-cursor
+      libxcb-image
+      libxcb-keysyms
+      libxcb-render-util
+      libxshmfence
+      libxkbfile
+      # Grafik
+      libGL
+      libGLU
+      libdrm
+      mesa
+      libgbm
+      # Schrift & Bilder
+      fontconfig
+      freetype
+      libpng
+      libjpeg
+      libwebp
+      # Audio
+      pulseaudio
+      alsa-lib
+      # Sonstiges (Qt-WebEngine/Emulator)
+      nss
+      nspr
+      expat
+      libbsd
+      wayland
+      udev
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     direnv
@@ -72,6 +127,7 @@
     iw
     aider-chat
     copyparty
+    android-tools
   ];
 
   environment.sessionVariables = {
