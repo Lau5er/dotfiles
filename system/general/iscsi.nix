@@ -1,5 +1,10 @@
 { pkgs, ... }:
 
+let
+  # UGREEN NAS Adresse (läuft über Tailscale)
+  ugreenHost = "100.90.134.75";
+in
+
 {
   # ---------------------------------------------------------
   # iSCSI & NAS Konfiguration (Laptop-freundlich)
@@ -13,7 +18,7 @@
     # Wenn du NixOS neu installierst, darf sich dieser Name nicht ändern,
     # sonst erkennt das NAS dich nicht mehr.
     name = "iqn.2024-11.com.nixos:laptop-client";
-    discoverPortal = "192.168.0.100";
+    discoverPortal = ugreenHost;
 
     # HIER IST DER FIX FÜR WLAN / ABBRÜCHE:
     extraConfig = ''
@@ -41,16 +46,16 @@
       RemainAfterExit = true;
 
       # 1. Sicherstellen, dass das Netzwerk-Interface wirklich bereit ist
-      ExecStartPre = "${pkgs.iputils}/bin/ping -c 1 -W 5 192.168.0.100";
+      ExecStartPre = "${pkgs.iputils}/bin/ping -c 1 -W 5 ${ugreenHost}";
 
       # 2. Der "All-in-One" Befehl:
       # -m discovery: Suche nach Targets
       # --login: Logge dich sofort ein, wenn du welche findest.
       # Das vermeidet die "No records found" (19) Fehler-Lücke.
-      ExecStart = "${pkgs.openiscsi}/bin/iscsiadm -m discovery -t sendtargets -p 192.168.0.100 --login";
+      ExecStart = "${pkgs.openiscsi}/bin/iscsiadm -m discovery -t sendtargets -p ${ugreenHost} --login";
 
       # Logout beim Herunterfahren
-      ExecStop = "${pkgs.openiscsi}/bin/iscsiadm -m node -p 192.168.0.100 --logout";
+      ExecStop = "${pkgs.openiscsi}/bin/iscsiadm -m node -p ${ugreenHost} --logout";
 
       Restart = "on-failure";
       RestartSec = "5s";
