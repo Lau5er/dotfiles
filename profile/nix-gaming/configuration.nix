@@ -9,7 +9,6 @@
       ../../system/virtualisation/kali.nix
       ../../system/loq/wifi.nix
       ../../system/loq/backlight.nix
-      ../../system/services/moonlight.nix
     ];
 
   # s2idle (S0ix) is the only sleep state on this LOQ (see /sys/power/mem_sleep).
@@ -81,14 +80,6 @@
   };
 
   hardware.enableRedistributableFirmware = true;
-
-  services.sunshine = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      encoder = "nvenc";
-    };
-  };
 
   services.languagetool = {
     enable = true;
