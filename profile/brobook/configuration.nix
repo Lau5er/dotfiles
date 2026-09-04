@@ -6,7 +6,6 @@
       ../../system/common/base.nix
       ../../system/general/fingerprint.nix
       ../../system/services/wifi.nix
-      ../../system/services/moonlight.nix
 
     #  ../../system/development/stm32.nix
     ];
@@ -21,14 +20,6 @@
   networking.firewall.allowedTCPPorts = [ 3923 8081 ];
 
   hardware.graphics.enable = true;
-
-  services.sunshine = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      encoder = "vaapi";
-    };
-  };
 
   services.languagetool = {
     enable = true;
