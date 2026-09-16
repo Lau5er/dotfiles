@@ -103,7 +103,15 @@
           {
             nixpkgs.overlays = [
               (final: prev: {
-                colibri = colibri.packages.${system}.default;
+                # Upstream flake misses c/v41_dsml.py in installPhase while
+                # c/openai_server.py imports it unconditionally, breaking
+                # both installCheck and `coli serve` at runtime.
+                colibri = (colibri.packages.${system}.default).overrideAttrs (old: {
+                  installPhase = old.installPhase + ''
+                    [ -e "$out/lib/colibri/v41_dsml.py" ] || \
+                      install -m 644 c/v41_dsml.py "$out/lib/colibri/"
+                  '';
+                });
               })
             ];
           }

@@ -13,6 +13,12 @@ in
   options.services.colibri = {
     enable = mkEnableOption "Colibri MoE inference service (GLM-5.2 via OpenAI-compatible API)";
 
+    autoStart = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Start the service automatically at boot (false = start manually via systemctl).";
+    };
+
     package = mkOption {
       type = types.package;
       default = pkgs.colibri;
@@ -58,6 +64,30 @@ in
       type = types.str;
       default = "colibri";
     };
+
+    contextLength = mkOption {
+      type = types.ints.positive;
+      default = 4096;
+      description = "Maximum context length (tokens) the KV cache is sized for.";
+    };
+
+    kvQuant = mkOption {
+      type = types.enum [ "kv8" "kv_tq" "off" ];
+      default = "off";
+      description = "KV cache quantization to shrink KV RAM (kv_tq ≈ 7.6x smaller than f32, kv8 ≈ 3.9x).";
+    };
+
+    maxNumParallel = mkOption {
+      type = types.ints.positive;
+      default = 1;
+      description = "Number of independent KV conversation slots.";
+    };
+
+    extraEnv = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "Additional KEY=VALUE environment variables for the service.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -69,7 +99,7 @@ in
 
     systemd.services.colibri = {
       description = "Colibri MoE inference server (OpenAI-compatible API)";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = lib.optional cfg.autoStart "multi-user.target";
       after = [ "network.target" ];
       serviceConfig = {
         User = cfg.user;
@@ -81,7 +111,11 @@ in
           "COLI_MODEL=${cfg.modelPath}"
           "COLI_API_KEY=${cfg.apiKey}"
           "COLI_MODEL_ID=${cfg.modelId}"
-        ];
+          "CTX=${toString cfg.contextLength}"
+          "KV_SLOTS=${toString cfg.maxNumParallel}"
+        ] ++ lib.optional (cfg.kvQuant == "kv8") "KV8=1"
+        ++ lib.optional (cfg.kvQuant == "kv_tq") "KV_TQ=4"
+        ++ cfg.extraEnv;
         ExecStart =
           "${cfg.package}/bin/coli serve --host ${cfg.host} --port ${toString cfg.port}";
         Restart = "on-failure";

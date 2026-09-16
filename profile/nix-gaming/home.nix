@@ -15,11 +15,14 @@ in
     ../../home/jetbrains-toolbox.nix
   ];
 
-  xdg.configFile = builtins.mapAttrs
+  xdg.configFile = (builtins.mapAttrs
     (name: subpath: {
       source = create_symlink "${dotfiles}/${subpath}";
     })
-    configs;
+    configs)
+    // {
+      "opencode/opencode.json".source = ./opencode.json;
+    };
 
   home.packages = with pkgs; [
     protonup-ng

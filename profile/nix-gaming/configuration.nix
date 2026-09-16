@@ -31,7 +31,12 @@
 
   networking.hostName = "nix-gaming";
 
-  networking.firewall.allowedTCPPorts = [ 8081 ];
+  # Replace the 4 GB swap partition with a 16 GB swapfile on / (it has room).
+  swapDevices = lib.mkForce [
+    { device = "/swapfile"; size = 16384; }
+  ];
+
+  networking.firewall.allowedTCPPorts = [ 8081 8000 ];
 
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -45,14 +50,20 @@
 
   services.colibri = {
     enable = true;
-    modelPath = "/home/lauser/models/glm52_i4";
+    autoStart = false;
+    modelPath = "/var/lib/colibri/models/glm52_i4";
+    host = "0.0.0.0";
     apiKey = "local";
+    contextLength = 1024;
+    kvQuant = "kv_tq";
+    maxNumParallel = 4;
+    extraEnv = [ "COLI_RAM_OVERCOMMIT=1" ];
   };
 
   services = {
     xserver.videoDrivers = [ "nvidia" ];
   };
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_1;
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_2;
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -65,7 +76,7 @@
     powerManagement.enable = false;
     powerManagement.finegrained = false;
     dynamicBoost.enable = true;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = pkgs-unstable.linuxKernel.packages.linux_7_2.nvidiaPackages.latest;
 
   };
   systemd.services.nvidia-power-limit = {
