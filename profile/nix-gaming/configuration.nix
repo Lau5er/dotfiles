@@ -9,6 +9,7 @@
       ../../system/virtualisation/kali.nix
       ../../system/loq/wifi.nix
       ../../system/loq/backlight.nix
+      ../../system/services/colibri.nix
     ];
 
   # s2idle (S0ix) is the only sleep state on this LOQ (see /sys/power/mem_sleep).
@@ -40,6 +41,12 @@
     enableOpenWebUI = true;
     contextLength = 8192;
     numParallel = 1;
+  };
+
+  services.colibri = {
+    enable = true;
+    modelPath = "/home/lauser/models/glm52_i4";
+    apiKey = "local";
   };
 
   services = {

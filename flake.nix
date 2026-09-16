@@ -21,9 +21,13 @@
     copyparty = {
       url = "github:9001/copyparty";
     };
+    colibri = {
+      url = "github:JustVugg/colibri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, copyparty, ... }:
+  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, copyparty, colibri, ... }:
     let
       system = "x86_64-linux";
       pkgs-unstable = import nixpkgs-unstable {
@@ -96,6 +100,13 @@
         modules = [
           ./profile/nix-gaming/configuration.nix
           home-manager.nixosModules.home-manager
+          {
+            nixpkgs.overlays = [
+              (final: prev: {
+                colibri = colibri.packages.${system}.default;
+              })
+            ];
+          }
           {
             home-manager = {
               useGlobalPkgs = true;
