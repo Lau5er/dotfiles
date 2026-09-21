@@ -107,7 +107,7 @@
 
   environment.systemPackages = with pkgs; [
     mangohud
-    opencode
+    pkgs-unstable.opencode
     aider-chat
     pkgs-unstable.github-copilot-cli
     bash #fix for copilot
