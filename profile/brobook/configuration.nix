@@ -21,16 +21,16 @@
 
   hardware.graphics.enable = true;
   hardware.enableRedistributableFirmware = true;
-  hardware.firmware = [
-    (pkgs.runCommand "fix-yellow-carp-dmcub" {} ''
-      mkdir -p $out/lib/firmware/amdgpu
-      cp ${pkgs.fetchurl {
-        url = "https://gitlab.com/kernel-firmware/linux-firmware/-/raw/20260810/amdgpu/yellow_carp_dmcub.bin";
-        hash = "sha256-S8uR1YunJ2hIRbAqnN0y83y1qfcb1Lk9TmeAlEZc2kc=";
-      }} $out/lib/firmware/amdgpu/yellow_carp_dmcub.bin
-    '')
-    pkgs.linux-firmware
-  ];
+#  hardware.firmware = [
+#    (pkgs.runCommand "fix-yellow-carp-dmcub" {} ''
+#      mkdir -p $out/lib/firmware/amdgpu
+#      cp ${pkgs.fetchurl {
+#        url = "https://gitlab.com/kernel-firmware/linux-firmware/-/raw/20260810/amdgpu/yellow_carp_dmcub.bin";
+#        hash = "sha256-S8uR1YunJ2hIRbAqnN0y83y1qfcb1Lk9TmeAlEZc2kc=";
+#      }} $out/lib/firmware/amdgpu/yellow_carp_dmcub.bin
+#    '')
+#    pkgs.linux-firmware
+#  ];
 
   services.languagetool = {
     enable = true;
