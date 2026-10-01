@@ -125,7 +125,7 @@
     pkgs-unstable.github-copilot-cli
     pkgs-unstable.winboat
     bash #fix for copilot
-    opencode
+    pkgs-unstable.opencode
     iw
     aider-chat
     copyparty
