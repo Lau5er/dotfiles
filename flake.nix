@@ -21,13 +21,9 @@
     copyparty = {
       url = "github:9001/copyparty";
     };
-    colibri = {
-      url = "github:JustVugg/colibri";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, copyparty, colibri, ... }:
+  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, copyparty, ... }:
     let
       system = "x86_64-linux";
       pkgs-unstable = import nixpkgs-unstable {
@@ -100,21 +96,6 @@
         modules = [
           ./profile/nix-gaming/configuration.nix
           home-manager.nixosModules.home-manager
-          {
-            nixpkgs.overlays = [
-              (final: prev: {
-                # Upstream flake misses c/v41_dsml.py in installPhase while
-                # c/openai_server.py imports it unconditionally, breaking
-                # both installCheck and `coli serve` at runtime.
-                colibri = (colibri.packages.${system}.default).overrideAttrs (old: {
-                  installPhase = old.installPhase + ''
-                    [ -e "$out/lib/colibri/v41_dsml.py" ] || \
-                      install -m 644 c/v41_dsml.py "$out/lib/colibri/"
-                  '';
-                });
-              })
-            ];
-          }
           {
             home-manager = {
               useGlobalPkgs = true;
