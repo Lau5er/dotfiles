@@ -131,6 +131,7 @@
     copyparty
     android-tools
     brightnessctl
+    aider-chat
   ];
 
   environment.sessionVariables = {
