@@ -31,6 +31,7 @@
         config = {
           allowUnfree = true;
           permittedInsecurePackages = [ "electron-40.10.5" ];
+          rocmSupport = true;
         };
       };
       vscode-extensions = nix-vscode-extensions.extensions.${system};

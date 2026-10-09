@@ -26,6 +26,14 @@
           "installation_mode" = "force_installed";
           "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/new-tab-override/latest.xpi";
         };
+        "deArrow@ajay.app" = {
+          "installation_mode" = "force_installed";
+          "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/dearrow/latest.xpi";
+        };
+        "sponsorBlocker@ajay.app" = {
+          "installation_mode" = "force_installed";
+          "install_url" = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
+        };
       };
 
       "3rdparty" = {

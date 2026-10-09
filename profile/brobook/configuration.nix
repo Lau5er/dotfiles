@@ -132,6 +132,7 @@
     android-tools
     brightnessctl
     aider-chat
+    (pkgs-unstable.darktable.override { withAi = true; })
   ];
 
   environment.sessionVariables = {
