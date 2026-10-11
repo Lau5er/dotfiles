@@ -39,13 +39,13 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  services.ollama-custom = {
-    enable = true;
-    backend = "cuda";
-    enableOpenWebUI = true;
-    contextLength = 8192;
-    numParallel = 1;
-  };
+  # services.ollama-custom = {
+  #   enable = true;
+  #   backend = "cuda";
+  #   enableOpenWebUI = true;
+  #   contextLength = 8192;
+  #   numParallel = 1;
+  # };
 
   services = {
     xserver.videoDrivers = [ "nvidia" ];
