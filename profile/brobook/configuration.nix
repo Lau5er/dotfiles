@@ -132,7 +132,10 @@
     android-tools
     brightnessctl
     aider-chat
-    (pkgs-unstable.darktable.override { withAi = true; })
+    (pkgs-unstable.darktable.override {
+    withAi = true;
+    onnxruntime = pkgs-unstable.onnxruntime.override { rocmSupport = false; };
+  })
   ];
 
   environment.sessionVariables = {

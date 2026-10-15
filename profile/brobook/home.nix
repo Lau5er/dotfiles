@@ -32,6 +32,17 @@ in
     nix-direnv.enable = true;
   };
 
+  systemd.user.services.aiderdesk-web = {
+    Unit.Description = "AiderDesk browser UI";
+    Service = {
+      ExecStart = "${pkgs.nodejs_24}/bin/npm exec --yes --package=@aiderdesk/aiderdesk@0.86.0 -- aiderdesk start";
+      Restart = "on-failure";
+      RestartSec = "5s";
+      WorkingDirectory = "%h";
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
+
   xdg.configFile = builtins.mapAttrs
     (name: subpath: {
       source = create_symlink "${dotfiles}/${subpath}";
