@@ -28,6 +28,7 @@ in
     protonup-ng
     keepassxc
     heroic
+    (import ../../home/twindesk.nix { inherit pkgs; })
   ];
 
   home.sessionVariables = {
