@@ -60,7 +60,8 @@ let
 
       makeWrapper ${pkgs.electron}/bin/electron $out/bin/twindesk \
         --chdir $out/share/twindesk/linux \
-        --add-flags $out/share/twindesk/linux/main.js
+        --add-flags $out/share/twindesk/linux/main.js \
+        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.openssl ]}
 
       runHook postInstall
     '';
@@ -74,4 +75,3 @@ let
   };
 in
 twindesk
-
