@@ -51,7 +51,7 @@
   services = {
     xserver.videoDrivers = [ "nvidia" ];
   };
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_2;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -64,7 +64,7 @@
     powerManagement.enable = false;
     powerManagement.finegrained = false;
     dynamicBoost.enable = true;
-    package = pkgs-unstable.linuxKernel.packages.linux_7_2.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
 
   };
   systemd.services.nvidia-power-limit = {
