@@ -31,6 +31,7 @@ let
     pname = "twindesk";
     version = "2.0.0";
     src = twindesk-src;
+    patches = [ ./twindesk-phone-bridge-imports.patch ];
 
     nativeBuildInputs = helper-build-deps ++ app-deps ++ [
       pkgs.electron

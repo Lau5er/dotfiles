@@ -1,0 +1,9 @@
+diff --git a/linux/phone-bridge.js b/linux/phone-bridge.js
+--- a/linux/phone-bridge.js
++++ b/linux/phone-bridge.js
+@@ -17,3 +17,5 @@
+ const { EventEmitter } = require('events');
++const fs = require('fs');
++const path = require('path');
+ const P = require('../shared/protocol.js');
+ const { Adb } = require('./adb');
