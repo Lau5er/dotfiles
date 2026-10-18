@@ -5,7 +5,7 @@ let
     owner = "InukaAsith";
     repo = "TwinDesk";
     rev = "main";
-    sha256 = "oXeGs0Bi60oMvSZ4/nckgyFLEJsvPcuZDDB7QBFNKSk=";
+    sha256 = "5RJyUa3hfJydjaNnqr4vK/ayskHMn/CVMzrWK5V0VtA=";
   };
 
   ws = pkgs.fetchurl {
@@ -74,3 +74,4 @@ let
   };
 in
 twindesk
+
