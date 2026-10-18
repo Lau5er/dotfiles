@@ -23,6 +23,7 @@
         mkhl.direnv # Direnv Integration
 
         github.copilot-chat
+        yzane.markdown-pdf # Markdown PDF Export
       ];
     };
   };
