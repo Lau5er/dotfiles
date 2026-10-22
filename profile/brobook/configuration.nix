@@ -17,7 +17,7 @@
   boot.initrd.luks.devices."luks-2e946b90-1c34-4930-a20c-0d7cd0bc654e".device = "/dev/disk/by-uuid/2e946b90-1c34-4930-a20c-0d7cd0bc654e";
   networking.hostName = "brobook"; # Define your hostname.
 
-  networking.firewall.allowedTCPPorts = [ 3923 8081 47800 ];
+  networking.firewall.allowedTCPPorts = [ 3923 8081 47800 5114 ];
   networking.firewall.allowedUDPPorts = [ 47801 ];
 
   hardware.graphics.enable = true;

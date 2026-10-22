@@ -35,7 +35,7 @@
     { device = "/swapfile"; size = 16384; }
   ];
 
-  networking.firewall.allowedTCPPorts = [ 8081 8000 47800 ];
+  networking.firewall.allowedTCPPorts = [ 8081 8000 47800 5114 ];
   networking.firewall.allowedUDPPorts = [ 47801 ];
 
   i18n.defaultLocale = "en_US.UTF-8";

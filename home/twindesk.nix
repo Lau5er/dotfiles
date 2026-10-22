@@ -5,7 +5,7 @@ let
     owner = "InukaAsith";
     repo = "TwinDesk";
     rev = "main";
-    sha256 = "5RJyUa3hfJydjaNnqr4vK/ayskHMn/CVMzrWK5V0VtA=";
+    sha256 = "BV0LGUSEZ+7NKu6oLbtbrluKayws08yh9CpEI4339DY=";
   };
 
   ws = pkgs.fetchurl {
@@ -29,9 +29,9 @@ let
 
   twindesk = pkgs.stdenv.mkDerivation {
     pname = "twindesk";
-    version = "2.0.0";
+    version = "2.1.0";
     src = twindesk-src;
-    patches = [ ./twindesk-phone-bridge-imports.patch ];
+#     patches = [ ./twindesk-phone-bridge-imports.patch ];
 
     nativeBuildInputs = helper-build-deps ++ app-deps ++ [
       pkgs.electron
