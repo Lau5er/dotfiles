@@ -4,8 +4,8 @@ let
   twindesk-src = pkgs.fetchFromGitHub {
     owner = "InukaAsith";
     repo = "TwinDesk";
-    rev = "main";
-    sha256 = "cIbk3BXQ/DH70tYOYDBlE+POl66bRbHnaMGtmfTdCWU=";
+    rev = "c27f3b41f53bb66b840b0316cb4d835cf06ae38c";
+    sha256 = "1k5sp4ag37yimwgmyiy0zfw88gx2nlp6fxrxkj6w51v3df9926pc";
   };
 
   ws = pkgs.fetchurl {
@@ -31,7 +31,7 @@ let
     pname = "twindesk";
     version = "2.3.0";
     src = twindesk-src;
-#     patches = [ ./twindesk-phone-bridge-imports.patch ];
+patches = [ ./twindesk-phone-bridge-imports.patch ];
 
     nativeBuildInputs = helper-build-deps ++ app-deps ++ [
       pkgs.electron
