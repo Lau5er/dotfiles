@@ -58,7 +58,6 @@ in
     openscad
 
     kp-unlock-script
-    (import ../../home/twindesk.nix { inherit pkgs; })
   ];
 
   xdg.desktopEntries.keepass-fingerprint = {

@@ -1,0 +1,9 @@
+--- a/flake.nix
++++ b/flake.nix
+@@ -72,6 +72,7 @@
+   # Copy shared files
+   cp -r shared/*.js shared/*.css shared/*.html "$share/shared/"
+   if [ -d shared/icon ]; then
++    cp -r shared/lang "$share/shared/"
+     cp -r shared/icon "$share/shared/"
+   fi

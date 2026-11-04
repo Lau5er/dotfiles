@@ -134,6 +134,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1792502884,
+        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -165,7 +181,8 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "plasma-manager": "plasma-manager",
-        "snapmaker-orca": "snapmaker-orca"
+        "snapmaker-orca": "snapmaker-orca",
+        "twindesk": "twindesk"
       }
     },
     "snapmaker-orca": {
@@ -183,6 +200,24 @@
       "original": {
         "owner": "Lau5er",
         "repo": "nix-snapmaker-orca",
+        "type": "github"
+      }
+    },
+    "twindesk": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1793799642,
+        "narHash": "sha256-2sPVl7C3UBEijyvotUTdDx4AF7bBhQL7akq0VsO1ORs=",
+        "owner": "InukaAsith",
+        "repo": "TwinDesk",
+        "rev": "f8b2e961b12355e940bcfdddf3c683ac763d114a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "InukaAsith",
+        "repo": "TwinDesk",
         "type": "github"
       }
     }

@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    twindesk.url = "github:InukaAsith/TwinDesk";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,7 +24,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, copyparty, ... }:
+  outputs = { self, nixpkgs, twindesk, home-manager, nixpkgs-unstable, nix-vscode-extensions, plasma-manager, snapmaker-orca, copyparty, ... }:
     let
       system = "x86_64-linux";
       pkgs-unstable = import nixpkgs-unstable {
@@ -35,6 +36,12 @@
         };
       };
       vscode-extensions = nix-vscode-extensions.extensions.${system};
+      twindeskPackage = twindesk.packages.${system}.default.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          mkdir -p "$out/share/twindesk/shared/lang"
+          cp -r shared/lang/. "$out/share/twindesk/shared/lang/"
+        '';
+      });
 
     in
     {
@@ -61,6 +68,8 @@
         specialArgs = { inherit pkgs-unstable; };
         modules = [
           ./profile/brobook/configuration.nix
+          twindesk.nixosModules.default
+          { programs.twindesk.package = twindeskPackage; }
           home-manager.nixosModules.home-manager
           snapmaker-orca.nixosModules.default
           {
@@ -96,6 +105,8 @@
         specialArgs = { inherit pkgs-unstable; };
         modules = [
           ./profile/nix-gaming/configuration.nix
+          twindesk.nixosModules.default
+          { programs.twindesk.package = twindeskPackage; }
           home-manager.nixosModules.home-manager
           {
             home-manager = {

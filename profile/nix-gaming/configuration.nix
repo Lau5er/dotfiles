@@ -35,8 +35,7 @@
     { device = "/swapfile"; size = 16384; }
   ];
 
-  networking.firewall.allowedTCPPorts = [ 8081 8000 47800 5114 ];
-  networking.firewall.allowedUDPPorts = [ 47801 ];
+  networking.firewall.allowedTCPPorts = [ 8081 8000 5114 ];
 
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -91,6 +90,11 @@
     enable = true;
     public = true;
     allowOrigin = "*";
+  };
+
+  programs.twindesk = {
+    enable = true;
+    user = "lauser";
   };
 
   environment.systemPackages = with pkgs; [
