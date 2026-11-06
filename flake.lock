@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793771012,
-        "narHash": "sha256-ozV/2vzTr4eZvolgP4x42OCy9bUyi+QZ+MwbDiCUyXE=",
+        "lastModified": 1793944645,
+        "narHash": "sha256-qMYr2KAM48CXw8tFtnctYOMdqrxJuVio6qF6C1Aa36E=",
         "owner": "nix-community",
         "repo": "nix-vscode-extensions",
-        "rev": "44a8e5090314d07a9e17f4dfb6f4eae6e90c7d7e",
+        "rev": "dfc54bda15d150e5d38c18d9ac31e640284774e4",
         "type": "github"
       },
       "original": {
@@ -106,11 +106,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1793633738,
-        "narHash": "sha256-dKEjuquCf1NEYiTZZr6xrvTrkhAm5Q94JuEwLBzycEs=",
-        "rev": "7dcdd87373d72e7a2173e4db02e20d3d7f495cfd",
+        "lastModified": 1793865203,
+        "narHash": "sha256-4D+5oPvxkOa6tTCWXi4jwRfmWhDXGRSrX4+eOTItLh0=",
+        "rev": "c56a87d8e41ce69bd2af57eb35dcc117a9dfca33",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.13446.7dcdd87373d7/nixexprs.tar.zst"
+        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.13627.c56a87d8e41c/nixexprs.tar.zst"
       },
       "original": {
         "id": "nixpkgs",
@@ -190,11 +190,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1781519365,
-        "narHash": "sha256-hkHAtcQdJ8ESzmI+D1y+l1D9Td8YWnp2D5gwbpJ6/d0=",
+        "lastModified": 1793191334,
+        "narHash": "sha256-O7k/wh743sywRv3wNGQilDZQw+5dFqjknQiWPxGqPwM=",
         "owner": "Lau5er",
         "repo": "nix-snapmaker-orca",
-        "rev": "a4e274f9c18936786a88eead46fa82ed24da0230",
+        "rev": "4a5da70ea00d707194dca61bcd2bd43ca8803e84",
         "type": "github"
       },
       "original": {
@@ -208,11 +208,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1793799642,
-        "narHash": "sha256-2sPVl7C3UBEijyvotUTdDx4AF7bBhQL7akq0VsO1ORs=",
+        "lastModified": 1793887629,
+        "narHash": "sha256-Xtq/4rMVqFzGdPNsLS1yZJNU4rZcsiv5zF74XNaVD6U=",
         "owner": "InukaAsith",
         "repo": "TwinDesk",
-        "rev": "f8b2e961b12355e940bcfdddf3c683ac763d114a",
+        "rev": "99d854c4e03a4cb58e9e6e06ac56a67d6b84953c",
         "type": "github"
       },
       "original": {

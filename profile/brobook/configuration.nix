@@ -122,7 +122,7 @@
     direnv
     pika-backup
     kdePackages.partitionmanager
-    brave
+    #brave
     ntfs3g
     keepassxc
     kdePackages.kwallet
