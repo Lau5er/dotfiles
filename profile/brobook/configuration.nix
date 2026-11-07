@@ -60,6 +60,7 @@
   programs.twindesk = {
     enable = true;
     user = "lauser";
+    openFirewall = true;
   };
 
   # Fremd-Binaries (JetBrains Toolbox, Android Studio, Emulator) mit nötigen libs starten
