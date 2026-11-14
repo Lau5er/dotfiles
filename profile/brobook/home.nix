@@ -52,7 +52,6 @@ in
   home.packages = with pkgs; [
     clang-tools
     teams-for-linux
-    deezer-enhanced
     pkgs-unstable.makemkv
     pkgs.freecad
     openscad
