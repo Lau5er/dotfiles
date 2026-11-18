@@ -59,7 +59,6 @@
 
   programs.twindesk = {
     enable = true;
-    user = "lauser";
     openFirewall = true;
   };
 

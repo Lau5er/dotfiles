@@ -94,7 +94,6 @@
 
   programs.twindesk = {
     enable = true;
-    user = "lauser";
   };
 
   environment.systemPackages = with pkgs; [
